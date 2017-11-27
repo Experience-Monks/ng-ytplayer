@@ -29,6 +29,7 @@
     "@angular/cli": "1.5.4",
     "@angular/compiler-cli": "^5.0.0",
     "@angular/language-service": "^5.0.0",
+    "@types/youtube": "0.0.31",
     "typescript": "~2.4.2"
   }
 }
