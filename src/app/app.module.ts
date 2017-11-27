@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import { YTPlayerModule, YTPlayerService } from './ytplayer';
 
 
 @NgModule({
@@ -10,9 +11,10 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
+    YTPlayerModule,
     BrowserModule
   ],
-  providers: [],
+  providers: [YTPlayerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
