@@ -70,7 +70,6 @@ export class YTPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private onplay() {
     this.playing.emit();
-    // TODO: consider making this configurable in the service
     this.ytPlayerService.pauseAllExcept(this);
   }
 

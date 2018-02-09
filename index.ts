@@ -1,2 +1,1 @@
-export { YTPlayerModule, YTPlayerService, YTPlayerComponent } from './src/app/ytplayer';
-export { loadAPI, parseQueryString } from './src/app/ytplayer/util';
+export { YTPlayerModule, YTPlayerService, YTPlayerComponent, loadAPI } from './src/app/ytplayer';

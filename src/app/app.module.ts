@@ -11,10 +11,9 @@ import { YTPlayerModule, YTPlayerService } from './ytplayer';
     AppComponent
   ],
   imports: [
-    YTPlayerModule,
+    YTPlayerModule.forRoot(),
     BrowserModule
   ],
-  providers: [YTPlayerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

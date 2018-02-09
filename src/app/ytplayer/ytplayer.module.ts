@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { YTPlayerComponent } from './ytplayer.component';
 import { YTPlayerService } from './ytplayer.service';
@@ -8,4 +8,13 @@ import { YTPlayerService } from './ytplayer.service';
   exports: [YTPlayerComponent],
   declarations: [YTPlayerComponent]
 })
-export class YTPlayerModule { }
+export class YTPlayerModule {
+
+  static forRoot(multiplePlaying = false): ModuleWithProviders {
+    return {
+      ngModule: YTPlayerModule,
+      providers: [{ provide: YTPlayerService, useFactory: () => new YTPlayerService(multiplePlaying) }]
+    }
+  }
+
+}

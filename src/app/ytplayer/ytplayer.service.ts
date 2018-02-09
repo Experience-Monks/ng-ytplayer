@@ -15,7 +15,7 @@ export class YTPlayerService {
 
   private players = new Array<YTPlayerComponent>();
 
-  constructor() {
+  constructor(private multiplePlaying = false) {
     loadAPI().then(() => this.apiReady.next(true));
   }
 
@@ -29,6 +29,8 @@ export class YTPlayerService {
   }
 
   public pauseAllExcept(playerComponent: YTPlayerComponent) {
+    if (this.multiplePlaying) { return; }
+
     const exception = this.players.indexOf(playerComponent);
     if (exception > -1) {
       this.players.forEach((player, index) => {
