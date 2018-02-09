@@ -16,16 +16,7 @@ export class YTPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.player.getCurrentTime();
   }
 
-  @Input()
-  set videoID(id: string) {
-    if (this.player && this.vid !== id) {
-      this.player.loadVideoById(id);
-    }
-    this.vid = id;
-  }
-  get videoID(): string {
-    return this.vid;
-  }
+  @Input() videoID: string
   @Input() domID: string;
   @Input() parameters: string|YT.PlayerVars;
 
@@ -38,7 +29,7 @@ export class YTPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() cued = new EventEmitter();
 
   private player: YT.Player;
-  private vid: string;
+  private isReady: boolean;
 
   constructor(private ytPlayerService: YTPlayerService) { }
 
@@ -61,14 +52,34 @@ export class YTPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public play() {
-    if (this.player) {
+    if (this.isReady) {
       this.player.playVideo();
+    } else {
+      console.warn('The player was not ready when tried to play.');
     }
   }
 
   public pause() {
-    if (this.player) {
+    if (this.isReady) {
       this.player.pauseVideo();
+    } else {
+      console.warn('The player was not ready when tried to pause.');
+    }
+  }
+
+  public cueVideoById(videoId: string, startSeconds?: number) {
+    if (this.isReady) {
+      this.player.cueVideoById(videoId, startSeconds);
+    } else {
+      console.warn('The player was not ready when tried to cueVideoById.');
+    }
+  }
+
+  public loadVideoById(videoId: string, startSeconds?: number) {
+    if (this.isReady) {
+      this.player.loadVideoById(videoId, startSeconds);
+    } else {
+      console.warn('The player was not ready when tried to loadVideoById.');
     }
   }
 
@@ -78,7 +89,12 @@ export class YTPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initPlayer(videoId: string, playerVars: YT.PlayerVars, domID: string) {
-    const onReady = () => this.ready.emit();
+    const onReady = () => {
+      if (!this.isReady) {
+        this.ready.emit();
+        this.isReady = true;
+      }
+    };
     const onStateChange = ({ data }) => {
       switch (data) {
         case YT.PlayerState.UNSTARTED:
