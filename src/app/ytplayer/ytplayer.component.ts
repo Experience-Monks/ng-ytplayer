@@ -40,7 +40,7 @@ export class YTPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.ytPlayerService.addPlayer(this);
-    this.domID = this.domID || this.videoID;
+    this.domID = this.domID || this.videoID || 'ng-yt-player-' + this.ytPlayerService.playersCount;
   }
 
   ngAfterViewInit() {
@@ -74,7 +74,7 @@ export class YTPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     this.ytPlayerService.pauseAllExcept(this);
   }
 
-  private initPlayer(videoId: string, playerVars: YT.PlayerVars, domID?: string) {
+  private initPlayer(videoId: string, playerVars: YT.PlayerVars, domID: string) {
     const onReady = () => this.ready.emit();
     const onStateChange = ({ data }) => {
       switch (data) {

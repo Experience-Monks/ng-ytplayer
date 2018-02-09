@@ -7,6 +7,10 @@ import { loadAPI } from './util';
 @Injectable()
 export class YTPlayerService {
 
+  public get playersCount(): number {
+    return this.players.length;
+  }
+
   public apiReady = new BehaviorSubject<boolean>(false);
 
   private players = new Array<YTPlayerComponent>();
