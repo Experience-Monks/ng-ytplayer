@@ -12,6 +12,10 @@ import { parseQueryString } from './util';
 })
 export class YTPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  public get currentTime(): number {
+    return this.player.getCurrentTime();
+  }
+
   @Input()
   set videoID(id: string) {
     if (this.player && this.vid !== id) {
