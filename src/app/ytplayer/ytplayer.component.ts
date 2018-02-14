@@ -16,7 +16,7 @@ export class YTPlayerComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.player.getCurrentTime();
   }
 
-  @Input() videoID: string
+  @Input() videoID: string;
   @Input() domID: string;
   @Input() parameters: string|YT.PlayerVars;
 

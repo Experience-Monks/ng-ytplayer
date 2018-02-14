@@ -14,7 +14,7 @@ export class YTPlayerModule {
     return {
       ngModule: YTPlayerModule,
       providers: [{ provide: YTPlayerService, useFactory: () => new YTPlayerService(multiplePlaying) }]
-    }
+    };
   }
 
 }

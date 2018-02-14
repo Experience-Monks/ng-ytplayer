@@ -30,6 +30,8 @@
     "@angular/compiler-cli": "^5.0.0",
     "@angular/language-service": "^5.0.0",
     "@types/youtube": "0.0.32",
+    "codelyzer": "^4.1.0",
+    "tslint": "^5.9.1",
     "typescript": "~2.4.2"
   }
 }
