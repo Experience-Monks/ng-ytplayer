@@ -1,7 +1,9 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { YTPlayerComponent } from './ytplayer.component';
 import { YTPlayerService } from './ytplayer.service';
+import { YTPlayerConfig } from './ytplayer.config';
 
 @NgModule({
   imports: [CommonModule],
@@ -10,10 +12,10 @@ import { YTPlayerService } from './ytplayer.service';
 })
 export class YTPlayerModule {
 
-  static forRoot(multiplePlaying = false): ModuleWithProviders {
+  static forRoot(config: YTPlayerConfig = {}): ModuleWithProviders {
     return {
       ngModule: YTPlayerModule,
-      providers: [{ provide: YTPlayerService, useFactory: () => new YTPlayerService(multiplePlaying) }]
+      providers: [YTPlayerService, { provide: YTPlayerConfig, useValue: config }]
     };
   }
 

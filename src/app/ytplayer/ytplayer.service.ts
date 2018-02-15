@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { YTPlayerComponent } from './ytplayer.component';
+import { YTPlayerConfig } from './ytplayer.config';
 import { loadAPI } from './util';
 
 @Injectable()
@@ -11,12 +12,19 @@ export class YTPlayerService {
     return this.players.length;
   }
 
-  public apiReady = new BehaviorSubject<boolean>(false);
+  public apiReady = new BehaviorSubject<boolean>(window['YT'] !== undefined);
 
   private players = new Array<YTPlayerComponent>();
+  private multiplePlaying: boolean;
 
-  constructor(private multiplePlaying = false) {
-    loadAPI().then(() => this.apiReady.next(true));
+  constructor(@Inject(YTPlayerConfig) config: YTPlayerConfig) {
+    this.multiplePlaying = config.multiplePlaying;
+
+    if (config.shouldLoadAPI !== false) {
+      loadAPI().then(() => this.apiReady.next(true));
+    } else if (this.apiReady.value === false) {
+      console.warn('YT API not loaded');
+    }
   }
 
   public addPlayer(player: YTPlayerComponent) {
