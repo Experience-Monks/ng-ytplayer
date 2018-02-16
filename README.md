@@ -46,4 +46,48 @@ When there are multiple instances of the player, it would only allow one to be p
 
 ## Using the component
 
-[example](src/app/app.component.ts)
+Here's a list of the component's input and output properties:
+
+```TypeScript
+@Input() videoID: string;
+@Input() domID: string;
+@Input() parameters: string|YT.PlayerVars;
+
+@Output() ready = new EventEmitter();
+@Output() unstarted = new EventEmitter();
+@Output() ended = new EventEmitter();
+@Output() playing = new EventEmitter();
+@Output() paused = new EventEmitter();
+@Output() buffering = new EventEmitter();
+@Output() cued = new EventEmitter();
+```
+
+### Input
+
+#### `videoID`
+
+The YouTube video ID to play
+
+#### `domID` (optional)
+
+The DOM element ID of the player
+
+#### `parameters` (optional)
+
+The player options, could be a query string or a object
+
+Reference on [IFrame Player Parameters](https://developers.google.com/youtube/player_parameters)
+
+### Output
+
+The output events are all from the [IFrame Player API](https://developers.google.com/youtube/iframe_api_reference#Events).
+
+### Other `public` properties and methods
+
+```TypeScript
+public get currentTime(): number
+public play(): void
+public pause(): void
+public cueVideoById(videoId: string, startSeconds?: number): void
+public loadVideoById(videoId: string, startSeconds?: number): void
+```
